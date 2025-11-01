@@ -14,10 +14,13 @@ namespace MO_32_2_Topolyan_NumbersAI
     public partial class FormMain : Form
     {
         private double[] inputPixels;
+        private Network network;
         public FormMain()
         {
             InitializeComponent();
             inputPixels = new double[15];
+
+            network = new Network();
         }
 
         private void Changing_State_Pixel_Button_Click(object sender, EventArgs e)
@@ -60,9 +63,23 @@ namespace MO_32_2_Topolyan_NumbersAI
             File.AppendAllText(path, tmpStr);
         }
 
-        private void button16_Click(object sender, EventArgs e)
+
+        private void button_Recognize_Click(object sender, EventArgs e)
         {
-            HiddenLayer hiddenLayer1 = new HiddenLayer(5, 7, NeuronType.Hidden, nameof(hiddenLayer1));
+            network.ForwardPass(network, inputPixels);
+            label_out.Text = network.Fact.ToList().IndexOf(network.Fact.Max()).ToString();
+            label_probability.Text = (100 * network.Fact.Max()).ToString("0.00")+ " %";
+        }
+
+        private void button_training_Click(object sender, EventArgs e)
+        {
+            network.Train(network);
+            for(int i=0; i<network.E_error_avr.Length; i++)
+            {
+                chart_Eavr.Series[0].Points.AddY(network.E_error_avr[i]);
+            }
+
+            MessageBox.Show("Обучение успешно завершеною", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

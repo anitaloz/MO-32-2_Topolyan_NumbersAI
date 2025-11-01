@@ -11,7 +11,7 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         private double derivative; //производная 
 
         //константы 
-        //private double a = 0.01d;
+        private double a = 0.01d;
 
         //свойства
         public double[] Weights

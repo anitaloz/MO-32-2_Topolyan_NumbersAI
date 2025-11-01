@@ -20,7 +20,33 @@
 
         public override double[] BackwardPass(double[] errors)
         {
-            double[] gr_sum = new double[numofprevneurons+1];
+            double[] gr_sum = new double[numofprevneurons+1];//так как softmax на выходном слое то учитвается порог изза энтропии(?)
+            for (int j=0; j<numofprevneurons+1; j++)
+            {
+                double sum = 0;
+                for (int k=0; k<numofneurons; k++)
+                {
+                    sum += neurons[k].Weights[j] * errors[k];
+
+                }
+                gr_sum[j] = sum;
+            }
+
+            for(int i=0; i<numofneurons; i++)//цикл коррекции синаптических весов
+            {
+                for(int n=0;  n<numofprevneurons+1; n++)
+                {
+                    double deltaw;
+                    if(n==0) //если порог
+                    {
+                        deltaw = momentum * lastdeltaweights[i, n] + learningrate * errors[i];
+                    }
+                    else deltaw=momentum * lastdeltaweights[i, n]+learningrate * errors[i]*neurons[i].Inputs[n-1];
+                    lastdeltaweights[i, n] = deltaw;
+                    neurons[i].Weights[n] += deltaw;
+                }
+
+            }
             return gr_sum;
         }
     }

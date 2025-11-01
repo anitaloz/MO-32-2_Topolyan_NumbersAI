@@ -12,8 +12,8 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         string pathFileWeights;
         protected int numofneurons;
         protected int numofprevneurons;
-        protected const double learningrate = 0.60;
-        protected const double momentum = 0.050d;
+        protected const double learningrate = 0.040;
+        protected const double momentum = 0.010d;
         protected double[,] lastdeltaweights;
         //protected double[,] temporaryWeights;// массив для проверки SET
         protected Neuron[] neurons;
@@ -61,12 +61,12 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
                 Neurons[i] = new Neuron(tmp_weights, nt);//заполнение массива нейронами
             }
             //temporaryWeights = WeightsInitializer(MemoryMode.INIT, pathDirWeights + name_Layer + "_memory.csv");
-            //WeightsInitializer(MemoryMode.SET, pathFileWeights); 
+            WeightsInitializer(MemoryMode.SET, pathFileWeights); 
 
         }
        
 
-        private double[,] WeightsInitializer(MemoryMode mm, string path)//может лучше тогда передавать сюда массив? бред какой-то
+        public double[,] WeightsInitializer(MemoryMode mm, string path)
         {
             double[,] weights = new double[numofneurons, numofprevneurons + 1];
             char[] delim = new char[] { ';', ' ' };
