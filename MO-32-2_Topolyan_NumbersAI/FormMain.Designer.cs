@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -54,6 +54,7 @@
             this.button_Recognize = new System.Windows.Forms.Button();
             this.chart_Eavr = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button_training = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).BeginInit();
             this.SuspendLayout();
@@ -302,22 +303,22 @@
             // 
             // chart_Eavr
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart_Eavr.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart_Eavr.ChartAreas.Add(chartArea2);
             this.chart_Eavr.Location = new System.Drawing.Point(269, 12);
             this.chart_Eavr.Name = "chart_Eavr";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            this.chart_Eavr.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Series1";
+            this.chart_Eavr.Series.Add(series2);
             this.chart_Eavr.Size = new System.Drawing.Size(502, 245);
             this.chart_Eavr.TabIndex = 22;
             this.chart_Eavr.Text = "chart_Eavr";
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            title1.Name = "Title1";
-            title1.Text = "График средних энергий ошибок";
-            this.chart_Eavr.Titles.Add(title1);
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            title2.Name = "Title1";
+            title2.Text = "График средних энергий ошибок";
+            this.chart_Eavr.Titles.Add(title2);
             // 
             // button_training
             // 
@@ -329,11 +330,22 @@
             this.button_training.UseVisualStyleBackColor = true;
             this.button_training.Click += new System.EventHandler(this.button_training_Click);
             // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(146, 146);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonTest.TabIndex = 24;
+            this.buttonTest.Text = "Тест";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 272);
+            this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.button_training);
             this.Controls.Add(this.chart_Eavr);
             this.Controls.Add(this.button_Recognize);
@@ -391,6 +403,7 @@
         private System.Windows.Forms.Button button_Recognize;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Eavr;
         private System.Windows.Forms.Button button_training;
+        private System.Windows.Forms.Button buttonTest;
     }
 }
 

@@ -22,22 +22,23 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
             nextLayer.Data = hidden_out;//передача выходного сигнала на вход следующего слоя
         }
 
+
         public override double[] BackwardPass(double[] gr_sums)
         {
             double[] gr_sum = new double[numofprevneurons];
-            for(int j=0; j<numofprevneurons;j++)//цикл вычисления градиентной суммы j нейрона
+            for (int j = 0; j < numofprevneurons; j++)//цикл вычисления градиентной суммы j нейрона
             {
                 double sum = 0;
-                for(int k=0; k<numofneurons; k++)
+                for (int k = 0; k < numofneurons; k++)
                 {
-                    sum += neurons[k].Weights[j] * neurons[k].Derivative * gr_sums[k];//через градиентные суммы и производную
+                    sum += neurons[k].Weights[j+1] * neurons[k].Derivative * gr_sums[k];//через градиентные суммы и производную
                 }
                 gr_sum[j] = sum;
             }
 
-            for(int i=0; i<numofneurons; i++)//цикл коррекции синаптических весов
+            for (int i = 0; i < numofneurons; i++)//цикл коррекции синаптических весов
             {
-                for(int n=0; n<numofprevneurons+1; n++)
+                for (int n = 0; n < numofprevneurons + 1; n++)
                 {
                     double deltaw;//величина ищменения синаптического веса
                     if (n == 0)//если порог

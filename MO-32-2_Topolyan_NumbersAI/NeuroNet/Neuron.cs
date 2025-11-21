@@ -21,7 +21,7 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         }
 
         public double[] Inputs { get => inputs; set => inputs = value; }
-        public double Output { get => output; }
+        public double Output { get => output; } //выходной сигнал   yj
         public double Derivative { get => derivative; }
 
         public Neuron(double[] memoryWeights, NeuronType typeNeuron)
@@ -32,13 +32,13 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
 
         public void Activator(double[] i)
         {
-            inputs = i; //передаяа вектора входного сигнала в массив 
+            inputs = i; //передача вектора входного сигнала в массив 
 
+            //vj и порог
             double sum = weights[0];
-
             for (int j = 0; j < inputs.Length; j++)
             {
-                sum += inputs[j] * weights[j + 1];
+                sum += inputs[j] * weights[j + 1];  //weights
             }
 
             switch (type)
@@ -48,7 +48,7 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
                     derivative = HpTan_Derivativator(sum);
                     break;
                 case NeuronType.Output:
-                    output = Exp(sum);
+                    output = sum;
                     break;
             }
 
@@ -61,8 +61,11 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         }
         private double HpTan_Derivativator(double sum)
         {
-            double deriv = 4/Pow(Exp(sum)+Exp(-sum), 2);
-            return deriv;
+            double deriv = 4 / Pow(Exp(sum) + Exp(-sum), 2);
+            return 1-output*output;
+            //return deriv;
         }
+
+
     }
 }

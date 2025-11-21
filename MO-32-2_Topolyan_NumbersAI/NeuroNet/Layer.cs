@@ -12,8 +12,8 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         string pathFileWeights;
         protected int numofneurons;
         protected int numofprevneurons;
-        protected const double learningrate = 0.040;
-        protected const double momentum = 0.010d;
+        protected const double learningrate = 0.03d; //0.042215 //0.0484d
+        protected const double momentum = 0.2d;
         protected double[,] lastdeltaweights;
         //protected double[,] temporaryWeights;// массив для проверки SET
         protected Neuron[] neurons;

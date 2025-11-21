@@ -79,7 +79,18 @@ namespace MO_32_2_Topolyan_NumbersAI
                 chart_Eavr.Series[0].Points.AddY(network.E_error_avr[i]);
             }
 
-            MessageBox.Show("Обучение успешно завершеною", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Обучение успешно завершеною", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            network.Test(network);
+            for (int i = 0; i < network.E_error_avr.Length; i++)
+            {
+                chart_Eavr.Series[0].Points.AddY(network.E_error_avr[i]);
+            }
+
+            MessageBox.Show("Тестирование успешно завершеною", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
