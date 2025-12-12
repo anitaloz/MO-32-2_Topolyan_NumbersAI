@@ -12,9 +12,9 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
         string pathFileWeights;
         protected int numofneurons;
         protected int numofprevneurons;
-        protected const double learningrate = 0.03d; //0.042215 //0.0484d
+        protected const double learningrate = 0.035d; //0.042215 //0.0484d
         protected const double momentum = 0.2d;
-        protected double[,] lastdeltaweights;
+        protected double[,] lastdeltaweights;//последнее изменение веса
         //protected double[,] temporaryWeights;// массив для проверки SET
         protected Neuron[] neurons;
 
@@ -29,6 +29,8 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
                 }
             }
         }
+
+        
 
         protected Layer(int non, int nopn, NeuronType nt, string nm_Layer)
         {
@@ -64,7 +66,29 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
             WeightsInitializer(MemoryMode.SET, pathFileWeights); 
 
         }
-       
+
+        public void Dropout()
+        {
+            double param = 0.35;
+            int count = (int)(param * (numofprevneurons + 1));
+            for (int i = 0; i < Neurons.Length; i++)
+            {
+                for(int j=0; j<count;j++)
+                {
+                    Random rand = new Random();
+                    int randind = rand.Next(numofprevneurons);
+                    while (Neurons[i].Weights[randind] == 0)
+                    {
+                        randind = rand.Next(numofprevneurons);
+                    }
+                    Neurons[i].Weights[randind] = 0;
+                }
+               
+
+            }
+
+
+        }
 
         public double[,] WeightsInitializer(MemoryMode mm, string path)
         {

@@ -22,23 +22,23 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
 
         public override double[] BackwardPass(double[] errors)
         {
-            double[] gr_sum = new double[numofprevneurons];//так как softmax на выходном слое то учитвается порог изза энтропии(?)
+            double[] gr_sum = new double[numofprevneurons];//...........////..так как softmax на выходном слое то учитвается порог изза энтропии(?)
             for (int j = 0; j < numofprevneurons; j++)//цикл по нейронам второго скрытого слоя
             {
                 double sum = 0;
                 for (int k = 0; k < numofneurons; k++)//цикл по нейронам выходного слоя
                 {
-                    sum += neurons[k].Weights[j+1] * errors[k]; //синаптические веса выходного слоя * ошибку
+                    sum += neurons[k].Weights[j+1] * errors[k]; //синаптические веса выходного слоя * ошибку ВЫЧИСЛЕНИЕ ГРАДИЕНТА
 
                 }
-                gr_sum[j] = sum;//массив для передачи в предыдущий слой
+                gr_sum[j] = sum;//массив для передачи в предыдущий слой ФОРМИРОВАНИЕ ВЕКТОРА ГРАДИЕНТНЫХ СУММ
             }
 
             for (int i = 0; i < numofneurons; i++)//цикл коррекции синаптических весов
             {
                 for (int n = 0; n < numofprevneurons + 1; n++)
                 {
-                    double deltaw;
+                    double deltaw;//локальный градиент
                     if (n == 0) //если порог
                     {
                         deltaw = momentum * lastdeltaweights[i, n] + learningrate * errors[i];

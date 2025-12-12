@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -55,8 +58,11 @@
             this.chart_Eavr = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button_training = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
+            this.chart_accuracy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button16 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_accuracy)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -241,19 +247,19 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(143, 189);
+            this.numericUpDown1.Location = new System.Drawing.Point(12, 274);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             9,
             0,
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(156, 20);
             this.numericUpDown1.TabIndex = 15;
             // 
             // button_saveTrainSample
             // 
-            this.button_saveTrainSample.Location = new System.Drawing.Point(143, 215);
+            this.button_saveTrainSample.Location = new System.Drawing.Point(90, 300);
             this.button_saveTrainSample.Name = "button_saveTrainSample";
             this.button_saveTrainSample.Size = new System.Drawing.Size(78, 23);
             this.button_saveTrainSample.TabIndex = 16;
@@ -263,7 +269,7 @@
             // 
             // button_saveTestSample
             // 
-            this.button_saveTestSample.Location = new System.Drawing.Point(143, 244);
+            this.button_saveTestSample.Location = new System.Drawing.Point(10, 300);
             this.button_saveTestSample.Name = "button_saveTestSample";
             this.button_saveTestSample.Size = new System.Drawing.Size(75, 23);
             this.button_saveTestSample.TabIndex = 17;
@@ -303,22 +309,25 @@
             // 
             // chart_Eavr
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart_Eavr.ChartAreas.Add(chartArea2);
+            this.chart_Eavr.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+            chartArea3.Name = "ChartArea1";
+            this.chart_Eavr.ChartAreas.Add(chartArea3);
             this.chart_Eavr.Location = new System.Drawing.Point(269, 12);
             this.chart_Eavr.Name = "chart_Eavr";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series1";
-            this.chart_Eavr.Series.Add(series2);
+            series3.BorderWidth = 3;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Red;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart_Eavr.Series.Add(series3);
             this.chart_Eavr.Size = new System.Drawing.Size(502, 245);
             this.chart_Eavr.TabIndex = 22;
-            this.chart_Eavr.Text = "chart_Eavr";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            title2.Name = "Title1";
-            title2.Text = "График средних энергий ошибок";
-            this.chart_Eavr.Titles.Add(title2);
+            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            title3.Name = "Title1";
+            title3.Text = "График средних энергий ошибок";
+            this.chart_Eavr.Titles.Add(title3);
+            this.chart_Eavr.Click += new System.EventHandler(this.chart_Eavr_Click);
             // 
             // button_training
             // 
@@ -332,7 +341,7 @@
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(146, 146);
+            this.buttonTest.Location = new System.Drawing.Point(143, 146);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(75, 23);
             this.buttonTest.TabIndex = 24;
@@ -340,14 +349,45 @@
             this.buttonTest.UseVisualStyleBackColor = true;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
+            // chart_accuracy
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.chart_accuracy.ChartAreas.Add(chartArea4);
+            this.chart_accuracy.Location = new System.Drawing.Point(269, 263);
+            this.chart_accuracy.Name = "chart_accuracy";
+            series4.BorderWidth = 3;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart_accuracy.Series.Add(series4);
+            this.chart_accuracy.Size = new System.Drawing.Size(502, 245);
+            this.chart_accuracy.TabIndex = 25;
+            this.chart_accuracy.Text = "Точность";
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            title4.Name = "Точность";
+            title4.Text = "Точность";
+            this.chart_accuracy.Titles.Add(title4);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(143, 190);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(75, 23);
+            this.button16.TabIndex = 26;
+            this.button16.Text = "DropOut";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(783, 272);
+            this.ClientSize = new System.Drawing.Size(783, 541);
+            this.Controls.Add(this.button16);
+            this.Controls.Add(this.chart_Eavr);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.button_training);
-            this.Controls.Add(this.chart_Eavr);
             this.Controls.Add(this.button_Recognize);
             this.Controls.Add(this.label_probability);
             this.Controls.Add(this.label_out);
@@ -369,10 +409,12 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.chart_accuracy);
             this.Name = "FormMain";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Eavr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_accuracy)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,6 +446,8 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Eavr;
         private System.Windows.Forms.Button button_training;
         private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_accuracy;
+        private System.Windows.Forms.Button button16;
     }
 }
 

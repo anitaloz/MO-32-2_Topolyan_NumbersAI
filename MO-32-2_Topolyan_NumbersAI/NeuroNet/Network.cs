@@ -9,9 +9,10 @@
 
         private double[] fact = new double[10];//массив фактического выхода
         private double[] e_error_avr;//среднее значение энергии ошибки  (cумма квадратов ошибок
+        private double[] accuracy;
         public double[] Fact { get => fact; }
         public double[] E_error_avr { get => e_error_avr; set => e_error_avr = value; } //средняя энергия ошибки
-
+        public double[] Accuracy { get => accuracy; set => accuracy = value; }
         public Network() { }
 
         public void ForwardPass(Network net, double[] netInput)
@@ -32,10 +33,15 @@
             double[] temp_gsums1; // вектора градиента 1-го скрытого слоя
             double[] temp_gsums2;// вектора градиента 2-го скрытого слоя
 
+           
+           
             e_error_avr = new double[epoches];
+            accuracy= new double[epoches];
             for (int k = 0; k < epoches; k++) // перебор эпох
             {
+                //double correctAns = 0.0; //Правильные ответы
                 e_error_avr[k] = 0; // вначале каждой эпохи ошибка = 0    Е(n)
+                accuracy[k] = 0;
                 net.input_layer.Shuffling_Array_Rows(net.input_layer.Trainset); //перетасовка
                 for (int i = 0; i < net.input_layer.Trainset.GetLength(0); i++)//n
                 {
@@ -49,12 +55,21 @@
 
                     //вычисление ошибки по итерации
                     tmpSumError = 0; // обнуляем для каждого обучающего образа   e(n)
+                   
+                    int curAns = 0;
+                    double maxOutput = -100;
                     errors = new double[net.fact.Length]; // массив ошибок выходного слоя ej(n)
                     for (int x = 0; x < errors.Length; x++)
                     {
+                        if (net.fact[x] > maxOutput) //условие для точности
+                        {
+                            maxOutput = net.fact[x];
+                            curAns = x;
+                        }
                         if (x == net.input_layer.Trainset[i, 0]) // если номер выходного слоя совпадает с желаемым откликом
                         {
                             errors[x] = 1.0 - net.fact[x]; //(dj(n)-yj(n)) где net.fact[x] это вероятность получения числа которая должна в идеале равняться 1(то есть dj(n))
+                       
                         }
                         else
                         {
@@ -62,6 +77,9 @@
                         }
                         tmpSumError += errors[x] * errors[x] / 2; //сумма энергии ошибки каждого нейрона выходного слоя
                     }
+                    if (curAns == (int)net.input_layer.Trainset[i, 0])
+                        accuracy[k] += 1;
+
                     e_error_avr[k] += tmpSumError / errors.Length; //суммарное значение энергии ошибки k-ой эпохи  Eav=1/N SUM(E(n))
 
                     // обратный проход и коррекиця весов!!!!!!!
@@ -70,6 +88,7 @@
                     net.hidden_layer1.BackwardPass(temp_gsums1);
                 }
                 e_error_avr[k] /= net.input_layer.Trainset.GetLength(0); // среднее значение энергии ошибки одной эпохи
+                accuracy[k] /= net.input_layer.Trainset.GetLength(0);
             }
 
             net.input_layer = null; // обнуление (уборка) слоя
@@ -89,26 +108,40 @@
             double[] temp_gsums1; // вектора градиента 1-го скрытого слоя
             double[] temp_gsums2;// вектора градиента 2-го скрытого слоя
 
+      
+
             e_error_avr = new double[epoches];
+            accuracy = new double[epoches];
             for (int k = 0; k < epoches; k++) // перебор эпох
             {
                 e_error_avr[k] = 0; // вначале каждой эпохи ошибка = 0
+                accuracy[k] = 0;
+                //double correctAns = 0.0; //Правильные ответы
                 net.input_layer.Shuffling_Array_Rows(net.input_layer.Testset); //перетасовка
                 for (int i = 0; i < net.input_layer.Testset.GetLength(0); i++)
                 {
-                    double[] tmpTrain = new double[15];
-                    for (int j = 0; j < tmpTrain.Length; j++)
+
+                    double[] tmpTest = new double[15];
+                    for (int j = 0; j < tmpTest.Length; j++)
                     {
-                        tmpTrain[j] = net.input_layer.Testset[i, j + 1];
+                        tmpTest[j] = net.input_layer.Testset[i, j + 1];
                     }
                     //прямой проход
-                    ForwardPass(net, tmpTrain);
+                    ForwardPass(net, tmpTest);
 
+                   
+                    int curAns = 0;
+                    double maxOutput = 0;
                     //вычисление ошибки по итерации
                     tmpSumError = 0; // обнуляем для каждого обучающего образа
                     errors = new double[net.fact.Length]; // массив ошибок выходного слоя
                     for (int x = 0; x < errors.Length; x++)
                     {
+                        if (net.fact[x] > maxOutput) //условие для точности
+                        {
+                            maxOutput = net.fact[x];
+                            curAns = x;
+                        }
                         if (x == net.input_layer.Testset[i, 0]) // если номер выходного слоя совпадает с желаемым откликом
                         {
                             errors[x] = 1.0 - net.fact[x];
@@ -121,16 +154,29 @@
                     }
                     e_error_avr[k] += tmpSumError / errors.Length; //суммарное значение энергии ошибки k-ой эпохи
 
+                    if (curAns == net.input_layer.Testset[i, 0])
+                        accuracy[k] += 1;
                     // обратный проход и коррекиця весов!!!!!!!
                     //temp_gsums2 = net.output_layer.BackwardPass(errors);
                     //temp_gsums1 = net.hidden_layer2.BackwardPass(temp_gsums2);
                     //net.hidden_layer1.BackwardPass(temp_gsums1);
                 }
                 e_error_avr[k] /= net.input_layer.Testset.GetLength(0); // среднее значение энергии ошибки одной эпохи
+                accuracy[k]/=net.input_layer.Testset.GetLength(0);
             }
 
             net.input_layer = null; // обнуление (уборка) слоя
            
         }
+
+
+        public void Dropout()
+        {
+            hidden_layer1.Dropout();
+            hidden_layer2.Dropout();
+            output_layer.Dropout();
+        }
+
+
     }
 }
