@@ -1,15 +1,9 @@
 ﻿using MO_32_2_Topolyan_NumbersAI.NeuroNet;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 namespace MO_32_2_Topolyan_NumbersAI
 {
     public partial class FormMain : Form
@@ -120,14 +114,9 @@ namespace MO_32_2_Topolyan_NumbersAI
             //MessageBox.Show("Тестирование успешно завершеною", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void chart_Eavr_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button16_Click(object sender, EventArgs e)
         {
-            network.Dropout();
+            network.Dropout((double) numericUDforDO.Value/100.0);
         }
     }
 }

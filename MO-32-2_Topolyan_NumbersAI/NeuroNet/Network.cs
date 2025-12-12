@@ -170,11 +170,11 @@
         }
 
 
-        public void Dropout()
+        public void Dropout(double param)
         {
-            hidden_layer1.Dropout();
-            hidden_layer2.Dropout();
-            output_layer.Dropout();
+            hidden_layer1.Dropout(param);
+            hidden_layer2.Dropout(param);
+            output_layer.Dropout(param);
         }
 
 

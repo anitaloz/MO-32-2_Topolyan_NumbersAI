@@ -67,9 +67,9 @@ namespace MO_32_2_Topolyan_NumbersAI.NeuroNet
 
         }
 
-        public void Dropout()
+        public void Dropout(double param)
         {
-            double param = 0.35;
+            //double param = 0.35;
             int count = (int)(param * (numofprevneurons + 1));
             for (int i = 0; i < Neurons.Length; i++)
             {
